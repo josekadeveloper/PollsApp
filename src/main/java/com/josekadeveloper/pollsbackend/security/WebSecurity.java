@@ -33,6 +33,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
             .authenticated();
 
         http.addFilter(getAuthenticationFilter())
+            .addFilter(new AuthorizationFilter(authenticationManager()))
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
