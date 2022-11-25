@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
 
         return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new ArrayList<>());
     }
+
+    @Override
+    public UserEntity getUser(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

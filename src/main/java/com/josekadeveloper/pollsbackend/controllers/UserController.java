@@ -4,6 +4,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,4 +34,18 @@ public class UserController {
 
         return userRest;
     };
+
+    @GetMapping
+    public UserRest getUser(Authentication authentication) {
+
+        UserEntity user = userService.getUser(
+            authentication.getPrincipal().toString()
+        );
+
+        UserRest userRest = new UserRest();
+
+        BeanUtils.copyProperties(user, userRest);
+
+        return userRest;
+    }
 }
